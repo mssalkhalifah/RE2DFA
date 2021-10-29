@@ -1,7 +1,12 @@
 package re2dfa.main;
 
+import java.io.InputStream;
+import java.util.Scanner;
+
 public class EntryPoint {
     public static void main(String[] args) {
-        new Main("/home/mssalkhalifah/Dev/JavaProjects/RE2DFA/src/main/resources/testregex.regex");
+        InputStream stream =  Main.class.getClassLoader().getResourceAsStream("testregex.regex");
+        Scanner scanner = new Scanner(stream);
+        new Main(scanner);
     }
 }

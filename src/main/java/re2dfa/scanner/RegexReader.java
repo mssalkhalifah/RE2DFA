@@ -2,34 +2,50 @@ package re2dfa.scanner;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.io.FileInputStream;
 import java.util.Stack;
 
 public class RegexReader {
     private final Scanner scanner;
-    private final String operators = "|.*";
+    public static final String operators = "|.*";
+    public static String OPEN_PARA = "({[";
+    public static String CLOSE_PARA = ")}]";
+    public static String operand = "abcdefghijklmnopqrstuvwxyz";
 
-    private final String operand = "abcdefghijklmnopqrstuvwxyz";
-
-    public RegexReader(String filePath) throws FileNotFoundException {
-        FileInputStream stream = new FileInputStream(filePath);
-        scanner = new Scanner(stream);
+    public RegexReader(Scanner scanner) throws FileNotFoundException {
+        this.scanner = scanner;
     }
 
-    public String postfixify() {
+    public String postfixes() {
         String re = addConcat(scanner.next());
-        Stack<String> stack = new Stack<>();
-
+        Stack<Character> stack = new Stack<>();
+        re += ')';
+        stack.push('(');
         StringBuilder stringBuilder = new StringBuilder();
         int currentPos = 0;
         while (currentPos < re.length()) {
             char currentChar = re.charAt(currentPos);
-            if (operand.indexOf(currentChar) >= 0) {
+            if (isOperand(currentChar)) {
                stringBuilder.append(currentChar);
+            } else if (isOpenPara(currentChar)) {
+                stack.push(currentChar);
+            } else if (isOperator(currentChar)) {
+                while (!stack.isEmpty()
+                        && isOperator(stack.peek())
+                        && isLowerPrecedence(currentChar, stack.peek())
+                        && !isOpenPara(stack.peek())) {
+                    stringBuilder.append(stack.pop());
+                }
+                stack.push(currentChar);
+            } else if (isClosePara(currentChar)) {
+                while (!isOpenPara(stack.peek())) {
+                    stringBuilder.append(stack.pop());
+                }
+                stack.pop(); // Pops open parenthesis
             }
+            ++currentPos;
         }
 
-        return re;
+        return stringBuilder.toString();
     }
 
     private String addConcat(String re) {
@@ -48,7 +64,28 @@ public class RegexReader {
             }
             ++currentPos;
         }
+
         stringBuilder.append(re.charAt(re.length() - 1));
         return stringBuilder.toString();
+    }
+
+    public static boolean isOperator(char character) {
+        return operators.indexOf(character) >= 0;
+    }
+
+    public static boolean isOpenPara(char character) {
+        return OPEN_PARA.indexOf(character) >= 0;
+    }
+
+    public static boolean isClosePara(char character) {
+        return CLOSE_PARA.indexOf(character) >= 0;
+    }
+
+    public static boolean isOperand(char character) {
+        return operand.indexOf(character) >= 0;
+    }
+
+    public static boolean isLowerPrecedence(char op, char otherOp) {
+        return operators.indexOf(op) < operators.indexOf(otherOp);
     }
 }
