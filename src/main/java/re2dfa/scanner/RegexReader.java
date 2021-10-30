@@ -1,6 +1,9 @@
 package re2dfa.scanner;
 
+import re2dfa.main.Main;
+
 import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -17,6 +20,7 @@ public class RegexReader {
 
     public String postfixes() {
         String re = addConcat(scanner.next());
+        fillSymbolTable(re);
         Stack<Character> stack = new Stack<>();
         re += ')';
         stack.push('(');
@@ -46,6 +50,20 @@ public class RegexReader {
         }
 
         return stringBuilder.toString();
+    }
+
+    private void fillSymbolTable(String regex) {
+        int currentPos = 0;
+
+        while (currentPos < regex.length()) {
+            char currentChar = regex.charAt(currentPos);
+            if (isOperand(currentChar)) {
+                if (!Main.symbolTable.containsKey(String.valueOf(currentChar))) {
+                    Main.symbolTable.put(String.valueOf(currentChar), String.valueOf(currentChar));
+                }
+            }
+            ++currentPos;
+        }
     }
 
     private String addConcat(String re) {
