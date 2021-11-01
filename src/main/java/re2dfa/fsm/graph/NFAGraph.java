@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public final class NFAGraph implements FAGraph {
-    private State startState;
-    private State finalState;
+    private final State startState;
+    private final State finalState;
     private final HashMap<Integer, State> stateHashMap;
 
     public NFAGraph() {

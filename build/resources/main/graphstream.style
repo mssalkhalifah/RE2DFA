@@ -1,0 +1,3 @@
+graph {}
+node { size-mode: fit; text-size: 20px; shape: rounded-box; fill-color: white; stroke-mode: plain; padding: 3px, 2px; }
+edge { text-size: 30px; text-alignment: along; text-offset: 10px, 5px; }

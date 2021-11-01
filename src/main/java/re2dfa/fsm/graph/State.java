@@ -1,11 +1,10 @@
 package re2dfa.fsm.graph;
 
-import org.jgrapht.alg.util.Pair;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class State {
+public final class State {
     private int stateNumber;
     private boolean isAcceptanceState;
     private final List<Pair<State, String>> nextStates;

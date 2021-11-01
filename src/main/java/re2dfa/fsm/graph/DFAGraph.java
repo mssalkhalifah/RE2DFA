@@ -1,52 +1,58 @@
 package re2dfa.fsm.graph;
 
-import org.jgrapht.alg.util.Pair;
 import re2dfa.fsm.interfaces.FAGraph;
-
 import java.util.*;
 
-public class DFAGraph implements FAGraph {
-    private final HashMap<Integer, List<Pair<Integer, String>>> graph;
-    private final Set<Integer> acceptanceStates;
+public final class DFAGraph implements FAGraph {
+    private final HashMap<Set<Integer>, List<Pair<Set<Integer>, String>>> graph;
+    private final HashSet<Set<Integer>> acceptanceStates;
 
     public DFAGraph() {
-        graph = new HashMap<>();
+        graph = new LinkedHashMap<>(32);
         acceptanceStates = new HashSet<>();
     }
 
-    public int addState(int stateNumber) {
-        if (!graph.containsKey(stateNumber)) {
-            graph.put(stateNumber, new LinkedList<>());
-            return stateNumber;
+    public void addState(Set<Integer> state) {
+        if (!graph.containsKey(state)) {
+            graph.put(state, new LinkedList<>());
         }
-        throw new IllegalArgumentException("DFA already contains " + stateNumber + " State");
     }
 
-    public int addAcceptanceState(int acceptanceState) {
+    public int indexOfState(Set<Integer> stateIndex) {
+        int index = 0;
+        for (Set<Integer> state : graph.keySet()) {
+            if (state.equals(stateIndex)) {
+                return index;
+            }
+            ++index;
+        }
+        return -1;
+    }
+
+    public Set<Map.Entry<Set<Integer>, List<Pair<Set<Integer>, String>>>> getStates() {
+        return graph.entrySet();
+    }
+
+    public void addAcceptanceState(Set<Integer> acceptanceState) {
         if (graph.containsKey(acceptanceState)) {
             acceptanceStates.add(acceptanceState);
-            return acceptanceState;
         }
-        throw new IllegalArgumentException(String.format("%d does not exist in DFA", acceptanceState));
     }
 
-    public boolean containsState(int state, int findState) {
-        for (Pair<Integer, String> nextState : graph.get(state)) {
-            if (nextState.getFirst() == findState) {
-                return true;
-            }
+    public boolean isAcceptanceState(Set<Integer> state) {
+        return acceptanceStates.contains(state);
+    }
+
+    public void addNextState(Set<Integer> state, Set<Integer> nextState, String symbol) {
+        if (graph.containsKey(state)) {
+            graph.get(state).add(new Pair<>(nextState, symbol));
+        } else {
+            throw new IllegalArgumentException("State does not exist");
         }
-
-        return false;
     }
 
-    public Set<Integer> getAcceptanceStates() {
-        return acceptanceStates;
-    }
-
-    public int addNextState(int state, String symbol, int nextState) {
-        graph.get(state).add(new Pair<>(nextState, symbol));
-        return nextState;
+    public boolean containState(Set<Integer> state) {
+        return graph.containsKey(state);
     }
 
     @Override
@@ -57,14 +63,13 @@ public class DFAGraph implements FAGraph {
     @Override
     public void printGraph() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Map.Entry<Integer, List<Pair<Integer, String>>> state : graph.entrySet()) {
-            stringBuilder.append(String.format("%d%s", state.getKey(),
-                    (acceptanceStates.contains(state.getKey()) ? " {Accept}:" : ":")));
-            for (Pair<Integer, String> nextState : state.getValue()) {
-                stringBuilder.append(String.format("\n\t-[%s]-> %s", nextState.getSecond(),
-                        (acceptanceStates.contains(nextState.getFirst())
-                                ? String.format("%d AcceptanceState", nextState.getFirst())
-                                : String.valueOf(nextState.getFirst()))));
+
+        for (Map.Entry<Set<Integer>, List<Pair<Set<Integer>, String>>> state : graph.entrySet()) {
+            stringBuilder.append(String.format("%d%s", indexOfState(state.getKey()),
+                    (acceptanceStates.contains(state.getKey()) ? "{Accept}:" : ":")));
+            for (Pair<Set<Integer>, String> nextState : state.getValue()) {
+                stringBuilder.append(String.format("\n\t:-[%s]->%d", nextState.getSecond(),
+                        indexOfState(nextState.getFirst())));
             }
             stringBuilder.append('\n');
         }

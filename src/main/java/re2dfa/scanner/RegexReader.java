@@ -3,18 +3,17 @@ package re2dfa.scanner;
 import re2dfa.main.Main;
 
 import java.io.FileNotFoundException;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
 
 public class RegexReader {
     private final Scanner scanner;
     public static final String operators = "|.*";
-    public static String OPEN_PARA = "({[";
-    public static String CLOSE_PARA = ")}]";
-    public static String operand = "abcdefghijklmnopqrstuvwxyz";
+    public static final String OPEN_PARA = "({[";
+    public static final String CLOSE_PARA = ")}]";
+    public static final String operand = "abcdefghijklmnopqrstuvwxyz";
 
-    public RegexReader(Scanner scanner) throws FileNotFoundException {
+    public RegexReader(Scanner scanner) {
         this.scanner = scanner;
     }
 

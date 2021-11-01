@@ -12,7 +12,11 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-    implementation 'org.jgrapht:jgrapht-core:1.5.1'
+
+    // Graph stream
+    implementation 'org.graphstream:gs-core:2.0'
+    implementation 'org.graphstream:gs-ui-swing:2.0'
+    implementation 'org.graphstream:gs-ui:1.3'
 }
 
 test {
