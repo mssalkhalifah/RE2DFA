@@ -29,6 +29,14 @@ public final class DFAGraph implements FAGraph {
         return -1;
     }
 
+    public Set<Integer> getStartingState() {
+        return graph.keySet().stream().findFirst().orElseThrow();
+    }
+
+    public List<Pair<Set<Integer>, String>> getNextStates(Set<Integer> state) {
+        return graph.get(state);
+    }
+
     public Set<Map.Entry<Set<Integer>, List<Pair<Set<Integer>, String>>>> getStates() {
         return graph.entrySet();
     }

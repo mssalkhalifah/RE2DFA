@@ -2,7 +2,6 @@ package re2dfa.scanner;
 
 import re2dfa.main.Main;
 
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -11,7 +10,7 @@ public class RegexReader {
     public static final String operators = "|.*";
     public static final String OPEN_PARA = "({[";
     public static final String CLOSE_PARA = ")}]";
-    public static final String operand = "abcdefghijklmnopqrstuvwxyz";
+    public static final String operand = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     public RegexReader(Scanner scanner) {
         this.scanner = scanner;

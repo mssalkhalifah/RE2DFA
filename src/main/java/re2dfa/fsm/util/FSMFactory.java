@@ -4,6 +4,8 @@ import re2dfa.fsm.interfaces.FAFactory;
 
 public class FSMFactory {
 
+    private FSMFactory() {}
+
     public static FAFactory getFAGraph(String faType) {
         if (faType.equalsIgnoreCase("NFA")) {
             return new NFAFactory();

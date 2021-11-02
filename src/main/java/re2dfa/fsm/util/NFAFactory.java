@@ -3,7 +3,9 @@ package re2dfa.fsm.util;
 import re2dfa.fsm.graph.NFAGraph;
 import re2dfa.fsm.graph.State;
 import re2dfa.fsm.interfaces.FAFactory;
+import re2dfa.main.Main;
 import re2dfa.scanner.RegexReader;
+import scala.util.parsing.combinator.testing.Str;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -19,7 +21,7 @@ public class NFAFactory implements FAFactory {
                 NFAGraph operandGraph = new NFAGraph(new State(), new State());
                 operandGraph
                         .getStartState()
-                        .addNextState(operandGraph.getFinalState(), ""+ regex.charAt(currentPos));
+                        .addNextState(operandGraph.getFinalState(), String.valueOf(regex.charAt(currentPos)));
                 faGraphStack.push(operandGraph);
             } else if (regex.charAt(currentPos) == '|') {
                 NFAGraph orOperatorGraph = new NFAGraph(new State(), new State());

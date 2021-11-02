@@ -20,7 +20,7 @@ public class GraphStreamFactory {
             Node node = graph.addNode(currentState);
 
             if (dfaGraph.isAcceptanceState(state.getKey())) {
-                node.setAttribute("ui.style", "fill-color: rgb(255,0,0);");
+                node.setAttribute("ui.style", "fill-color: rgb(152,251,152);");
             }
 
             node.setAttribute("ui.label", currentState);

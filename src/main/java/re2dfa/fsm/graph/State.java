@@ -14,21 +14,12 @@ public final class State {
         this.nextStates = new LinkedList<>();
     }
 
-    public State(int stateNumber) {
-        this.stateNumber = stateNumber;
-        this.nextStates = new LinkedList<>();
-    }
-
     public void addNextState(State nextState, String weight) {
        nextStates.add(new Pair<>(nextState, weight));
     }
 
     public List<Pair<State, String>> getNextStates() {
         return nextStates;
-    }
-
-    public boolean isAcceptanceState() {
-        return isAcceptanceState;
     }
 
     public void setAcceptanceState(boolean acceptanceState) {
