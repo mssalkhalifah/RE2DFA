@@ -2,23 +2,72 @@ package re2dfa.scanner;
 
 import re2dfa.main.Main;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class RegexReader {
-    private final Scanner scanner;
+public final class RegexReader {
     public static final String operators = "|.*";
     public static final String OPEN_PARA = "({[";
     public static final String CLOSE_PARA = ")}]";
     public static final String operand = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private final Scanner scanner;
 
     public RegexReader(Scanner scanner) {
         this.scanner = scanner;
     }
 
+    public static List<String> getTokenList(String regex) {
+        LinkedList<String> tokenLinkedList = tokenizer(regex);
+
+
+        return tokenLinkedList;
+    }
+
+    private static void fillSymbolTable(List<String> tokens) {
+
+    }
+
+    private static LinkedList<String> tokenizer(String regex) {
+        LinkedList<String> tokens = new LinkedList<>();
+
+        int currentPos = 0;
+        while (currentPos < regex.length()) {
+            char currentChar = regex.charAt(currentPos);
+            if (isOperand(currentChar)
+                    || isOperator(currentChar)
+                    || isOpenPara(currentChar)
+                    || isClosePara(currentChar)) {
+                tokens.add(String.valueOf(currentChar));
+            }
+            if (currentChar == '\\') {
+                char nextChar = regex.charAt(currentPos + 1);
+                if (nextChar == 'e') {
+                    tokens.add("epsilon");
+                    ++currentPos;
+                }
+            }
+            ++currentPos;
+        }
+
+        return tokens;
+    }
+
+    private static LinkedList<String> postfix(List<String> tokens) {
+        LinkedList<String> postfixTokenList = new LinkedList<>();
+
+        for (String token : tokens) {
+
+        }
+
+        return null;
+    }
+
     public String postfixes() {
-        String re = addConcat(scanner.next());
-        fillSymbolTable(re);
+        String regex = scanner.next();
+        regex = fillSymbolTable(regex);
+        String re = addConcat(regex);
         Stack<Character> stack = new Stack<>();
         re += ')';
         stack.push('(');
@@ -50,7 +99,7 @@ public class RegexReader {
         return stringBuilder.toString();
     }
 
-    private void fillSymbolTable(String regex) {
+    private String fillSymbolTable(String regex) {
         int currentPos = 0;
 
         while (currentPos < regex.length()) {
@@ -60,8 +109,11 @@ public class RegexReader {
                     Main.symbolTable.put(String.valueOf(currentChar), String.valueOf(currentChar));
                 }
             }
+
             ++currentPos;
         }
+
+        return regex;
     }
 
     private String addConcat(String re) {

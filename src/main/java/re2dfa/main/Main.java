@@ -39,6 +39,8 @@ public class Main {
             System.setProperty("org.graphstream.ui", "swing");
             Graph dfaGraph = GraphStreamFactory.build((DFAGraph) dfa);
             dfaGraph.setAttribute("ui.stylesheet", graphAttribute);
+            dfaGraph.setAttribute("ui.quality");
+            dfaGraph.setAttribute("ui.antialias");
             Viewer viewer = dfaGraph.display();
             viewer.getDefaultView().enableMouseOptions();
         }
