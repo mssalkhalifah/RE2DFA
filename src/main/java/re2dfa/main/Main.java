@@ -24,7 +24,7 @@ public class Main {
         String regex = scanner.next();
         List<String> tokens = RegexReader.getTokenList(regex);
 
-        System.out.printf("Tokens: %s%n", tokens);
+        System.out.printf("Tokens: %s%n%n", tokens);
 
         FAGraph nfa = FSMFactory.getFAGraph("nfa").build(tokens);
         nfa.printGraph();

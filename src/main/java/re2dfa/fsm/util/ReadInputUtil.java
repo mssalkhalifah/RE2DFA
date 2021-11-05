@@ -26,7 +26,7 @@ public class ReadInputUtil {
             }
 
             if (!hasNextState) {
-                return false;
+                return dfaGraph.isAcceptanceState(currentState);
             }
             ++currentPos;
         }

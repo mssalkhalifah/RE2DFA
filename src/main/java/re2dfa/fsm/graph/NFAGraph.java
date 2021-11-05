@@ -50,6 +50,9 @@ public final class NFAGraph implements FAGraph {
         stateQueue.add(startState);
         StringBuilder stringBuilder = new StringBuilder();
         HashSet<Integer> stateNumberSet = new HashSet<>();
+
+        stringBuilder.append("NFA graph:").append('\n');
+
         while (!stateQueue.isEmpty()) {
             State state = stateQueue.poll();
             if (!stateNumberSet.contains(state.getStateNumber())) {

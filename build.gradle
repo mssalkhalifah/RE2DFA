@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'edu.imamu'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 repositories {
     mavenCentral()
@@ -24,4 +24,18 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+task uberJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 're2dfa.main.EntryPoint'
+    }
+    //archiveClassifier = 'uber'
+
+    from sourceSets.main.output
+
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    }
 }

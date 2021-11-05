@@ -72,6 +72,8 @@ public final class DFAGraph implements FAGraph {
     public void printGraph() {
         StringBuilder stringBuilder = new StringBuilder();
 
+        stringBuilder.append("DFA graph:").append('\n');
+
         for (Map.Entry<Set<Integer>, List<Pair<Set<Integer>, String>>> state : graph.entrySet()) {
             stringBuilder.append(String.format("%d%s", indexOfState(state.getKey()),
                     (acceptanceStates.contains(state.getKey()) ? "{Accept}:" : ":")));
