@@ -4,13 +4,14 @@ import org.graphstream.graph.Graph;
 import org.graphstream.ui.view.Viewer;
 import re2dfa.fsm.graph.DFAGraph;
 import re2dfa.fsm.interfaces.FAGraph;
-import re2dfa.fsm.util.FSMFactory;
-import re2dfa.fsm.util.GraphStreamFactory;
+import re2dfa.fsm.factories.FSMFactory;
+import re2dfa.fsm.factories.GraphStreamFactory;
 import re2dfa.fsm.util.ReadInputUtil;
 import re2dfa.scanner.RegexReader;
 
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -19,18 +20,21 @@ public class Main {
 
     private Main() {}
 
-    public static void start(Scanner scanner, String input, boolean visualMode, boolean debugMode) {
-        RegexReader reader = new RegexReader(scanner);
-        String postFixedRegex = reader.postfixes();
+    public static void start(Scanner scanner, String input, boolean visualMode) {
+        String regex = scanner.next();
+        List<String> tokens = RegexReader.getTokenList(regex);
 
-        System.out.println(postFixedRegex);
+        System.out.printf("Tokens: %s%n", tokens);
 
-        FAGraph nfa = FSMFactory.getFAGraph("nfa").build(postFixedRegex);
+        FAGraph nfa = FSMFactory.getFAGraph("nfa").build(tokens);
         nfa.printGraph();
-        FAGraph dfa = FSMFactory.getFAGraph("dfa").build(postFixedRegex);
+        FAGraph dfa = FSMFactory.getFAGraph("dfa").build(tokens);
         dfa.printGraph();
 
-        System.out.printf("Input: %s is %b%n", input, ReadInputUtil.checkInput(input, (DFAGraph) dfa));
+        System.out.printf("NFA constructed with %d states%nTransformed into DFA with %d states%n", nfa.size(), dfa.size());
+        if (!input.isEmpty()) {
+            System.out.printf("Regex: %s%nInput: %s is %b%n", regex, input, ReadInputUtil.checkInput(input, (DFAGraph) dfa));
+        }
 
         if (visualMode) {
             InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("graphstream.style");

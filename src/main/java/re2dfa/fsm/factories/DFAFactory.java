@@ -1,4 +1,4 @@
-package re2dfa.fsm.util;
+package re2dfa.fsm.factories;
 
 import re2dfa.fsm.graph.Pair;
 import re2dfa.fsm.graph.DFAGraph;
@@ -11,8 +11,8 @@ import java.util.*;
 public class DFAFactory implements FAFactory {
 
     @Override
-    public DFAGraph build(String regex) {
-        NFAGraph nfa = (NFAGraph) FSMFactory.getFAGraph("nfa").build(regex);
+    public DFAGraph build(List<String> tokens) {
+        NFAGraph nfa = (NFAGraph) FSMFactory.getFAGraph("nfa").build(tokens);
         DFAGraph dfa = new DFAGraph();
         Queue<Set<Integer>> unmarkedStates = new LinkedList<>();
         int acceptanceState = nfa.getFinalState().getStateNumber();
@@ -86,7 +86,7 @@ public class DFAFactory implements FAFactory {
                             traversalResult.add(nextState.getFirst().getStateNumber());
                         }
                     } else {
-                        if (nextState.getSecond() != null && nextState.getSecond().equalsIgnoreCase(symbol)) {
+                        if (nextState.getSecond() != null && nextState.getSecond().equalsIgnoreCase(Main.symbolTable.get(symbol))) {
                             stateQueue.add(nextState.getFirst());
                             traversalResult.add(nextState.getFirst().getStateNumber());
                         }

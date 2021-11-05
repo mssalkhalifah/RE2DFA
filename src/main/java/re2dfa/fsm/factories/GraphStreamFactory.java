@@ -1,4 +1,4 @@
-package re2dfa.fsm.util;
+package re2dfa.fsm.factories;
 
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
@@ -6,6 +6,8 @@ import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
 import re2dfa.fsm.graph.DFAGraph;
 import re2dfa.fsm.graph.Pair;
+import re2dfa.main.Main;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +33,7 @@ public class GraphStreamFactory {
                 nextNode.setAttribute("ui.label", nextStateIndex);
 
                 Edge edge = graph.addEdge(currentState + nextStateIndex, node, nextNode, true);
-                edge.setAttribute("ui.label", nextState.getSecond());
+                edge.setAttribute("ui.label", Main.symbolTable.get(nextState.getSecond()));
             }
         }
 

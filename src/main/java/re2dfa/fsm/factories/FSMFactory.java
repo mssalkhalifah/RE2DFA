@@ -1,4 +1,4 @@
-package re2dfa.fsm.util;
+package re2dfa.fsm.factories;
 
 import re2dfa.fsm.interfaces.FAFactory;
 

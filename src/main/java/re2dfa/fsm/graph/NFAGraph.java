@@ -12,12 +12,14 @@ public final class NFAGraph implements FAGraph {
     private final State finalState;
     private final HashMap<Integer, State> stateHashMap;
 
-    public NFAGraph() {
-        this.stateHashMap = new HashMap<>();
-        this.startState = new State();
-        this.finalState = startState;
-        this.finalState.setAcceptanceState(true);
-    }
+// --Commented out by Inspection START (11/3/21, 5:21 PM):
+//    public NFAGraph() {
+//        this.stateHashMap = new HashMap<>();
+//        this.startState = new State();
+//        this.finalState = startState;
+//        this.finalState.setAcceptanceState(true);
+//    }
+// --Commented out by Inspection STOP (11/3/21, 5:21 PM)
 
     public NFAGraph(State startState, State finalState) {
         stateHashMap = new HashMap<>();

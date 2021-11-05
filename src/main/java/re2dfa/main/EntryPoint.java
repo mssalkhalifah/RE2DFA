@@ -1,25 +1,32 @@
 package re2dfa.main;
 
-import java.util.BitSet;
 import java.util.Scanner;
 
 public class EntryPoint {
     public static void main(String[] args) {
-        Scanner scanner;
-        if (args.length == 2) {
-            scanner = new Scanner(args[0]);
-            Main.start(scanner, args[1], false, false);
-        } else if (args.length == 3) {
-            BitSet flags = new BitSet(2);
+        if (args.length < 1) {
+            System.err.println("Arguments less than 1");
+        } else {
+            Scanner scanner = new Scanner(args[0]);
 
-            if (args[0].contains("v")) {
-                flags.set(0);
-            } else if (args[0].contains("d")) {
-                flags.set(1);
+            if (args.length == 2) {
+                if (args[1].matches("-v")) {
+                    Main.start(scanner, "", true);
+                } else {
+                    Main.start(scanner, args[1], false);
+                }
+            } else if (args.length > 2) {
+                String option = args[1];
+                String input = args[2];
+
+                if (!option.matches("-v")) {
+                    System.err.println("Invalid arg must be: regex [opt] [input]");
+                } else {
+                    Main.start(scanner, input, true);
+                }
+            } else {
+                Main.start(scanner, "", false);
             }
-
-            scanner = new Scanner(args[1]);
-            Main.start(scanner, args[2], flags.get(0), flags.get(1));
         }
     }
 }
