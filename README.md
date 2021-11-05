@@ -1,6 +1,6 @@
 
 # RE2DFA
-This project is part of a larger project made for the course CS445 Compiler at Imam Mohammad Ibn Saud Islamic University. The goal of this program is to transform regular definition into Deterministic-Finite Automata. Requires Java 11+.
+This project is part of a larger project made for the course CS445 Compiler at Imam Mohammad Ibn Saud Islamic University. The goal of this program is to transform regular expression into a Deterministic-Finite Automata. Requires Java 11+.
 ## How to use
 1. Download from <a href="https://github.com/mssalkhalifah/RE2DFA/releases/tag/1.0.0">releases</a>.
 2. Place it anywhere on your computer.
