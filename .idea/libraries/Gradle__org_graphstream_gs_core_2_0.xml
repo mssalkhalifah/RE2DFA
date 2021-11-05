@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.graphstream:gs-core:2.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.graphstream/gs-core/2.0/3d7ff769c11283016c6b3cc02d29480d035ceb4b/gs-core-2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.graphstream/gs-core/2.0/b88326f16c74b884c1f3a82d36087d66e0315fd5/gs-core-2.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

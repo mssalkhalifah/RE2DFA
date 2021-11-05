@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.graphstream:gs-ui-swing:2.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.graphstream/gs-ui-swing/2.0/b62a97400c9307d7410c2e2e048aa300f3ea68bf/gs-ui-swing-2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.graphstream/gs-ui-swing/2.0/762647e03129a610f544e3bb46f419565cdb1950/gs-ui-swing-2.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

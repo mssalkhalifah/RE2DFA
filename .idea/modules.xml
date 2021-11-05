@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/RE2DFA.iml" filepath="$PROJECT_DIR$/.idea/RE2DFA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/benchmark/RE2DFA.benchmark.iml" filepath="$PROJECT_DIR$/.idea/modules/benchmark/RE2DFA.benchmark.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/RE2DFA.main.iml" filepath="$PROJECT_DIR$/.idea/modules/RE2DFA.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/RE2DFA.test.iml" filepath="$PROJECT_DIR$/.idea/modules/RE2DFA.test.iml" />
+    </modules>
+  </component>
+</project>
